@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* 主题变量 */
+:root {
+  --bg-color: #ffffff;
+  --bg-color-secondary: #f9f9f9;
+  --text-color-primary: #171717;
+  --text-color-secondary: #666;
+  --border-color: #e5e7eb;
+  --code-block-bg: #282c34;
+  --code-header-bg: #f7f7f7;
+  --code-header-button-hover-bg: #e5e7eb;
+  --code-border: #e5e7eb;
+  --code-lang-text: #666;
+  --code-font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
