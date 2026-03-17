@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
               <div className="shortcut-key">⌘ K</div>
             </div>
           </div>
-          <a href="https://github.com/Solomon-He/LLM-chat" target="_blank" className="github-link">
+          <a href="https://github.com/short-seven/LLM-chat-box2.0-React" target="_blank" className="github-link">
             <img src={githubIcon} alt="GitHub" className="github-icon" />
           </a>
         </div>
