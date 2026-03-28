@@ -5,7 +5,8 @@
 
 ## 🧠 作者想说
 首先感谢一个开源LLM Chat Vue的老哥（他的版本在我主页Star中）,我主要把他的Vue3全家桶语法改为最新版本的React全家桶,并且增加一点安全校验去掉了硬编码API Key，Zustand状态同步等问题。欢迎大家Fork，Star和提Issues一起学习和交流！未来我会不断的改善这个React版本和增加RAG等功能！
-
+部署地址：https://short-seven.github.io/LLM-chat-box2.0-React/
+温馨提示打开梯子来访问上面地址，然后问ai对话,需要填写硅基流动平台的apikey!
 ## 📊 项目状态
 
 这个项目目前是一个纯前端聊天客户端，适合用于：
