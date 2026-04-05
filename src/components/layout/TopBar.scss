@@ -1,0 +1,106 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  height: 52px;
+  background-color: var(--color-header-bg);
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex: 1;
+
+    .topbar-title-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--transition-fast);
+
+      &:hover {
+        background-color: var(--color-bg-tertiary);
+
+        .topbar-edit-hint {
+          opacity: 1;
+        }
+      }
+    }
+
+    .topbar-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 300px;
+      margin: 0;
+    }
+
+    .topbar-edit-hint {
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      transition: opacity var(--transition-fast);
+
+      img {
+        opacity: 0.5;
+      }
+    }
+
+    .topbar-title-input {
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-sm);
+      padding: 3px 8px;
+      outline: none;
+      background: var(--color-input-bg);
+      color: var(--color-text-primary);
+      box-shadow: 0 0 0 2px var(--color-primary-light);
+      min-width: 200px;
+    }
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+
+    .topbar-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary);
+      transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+
+      img {
+        width: 16px;
+        height: 16px;
+        opacity: 0.7;
+        transition: opacity var(--transition-fast);
+      }
+
+      &:hover {
+        background-color: var(--color-primary-light);
+        color: var(--color-primary);
+        transform: scale(1.08);
+
+        img {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

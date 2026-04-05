@@ -55,7 +55,7 @@ export const useChatStore = create<ChatState>()(
       conversations: [
         {
           id: '1',
-          title: '日常问候',
+          title: '新对话 1',
           messages: [],
           createdAt: Date.now(),
         },
@@ -76,9 +76,10 @@ export const useChatStore = create<ChatState>()(
       },
 
       createConversation: () => {
+        const count = get().conversations.length + 1;
         const newConversation: Conversation = {
           id: Date.now().toString(),
-          title: '日常问候',
+          title: `新对话 ${count}`,
           messages: [],
           createdAt: Date.now(),
         };
@@ -177,7 +178,7 @@ export const useChatStore = create<ChatState>()(
           if (conversations.length === 0) {
             const newConversation: Conversation = {
               id: Date.now().toString(),
-              title: '日常问候',
+              title: '新对话 1',
               messages: [],
               createdAt: Date.now(),
             };

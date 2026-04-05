@@ -1,0 +1,37 @@
+.conv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 8px;
+}
+
+.conv-group {
+  margin-bottom: 8px;
+
+  .conv-group-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 10px 4px;
+  }
+}
+
+.conv-list-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+
+  svg {
+    opacity: 0.4;
+  }
+
+  p {
+    font-size: 0.875rem;
+  }
+}

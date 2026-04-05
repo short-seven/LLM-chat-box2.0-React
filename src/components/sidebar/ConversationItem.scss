@@ -1,0 +1,105 @@
+.conversation-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  position: relative;
+  transition: background-color var(--transition-fast);
+  min-width: 0;
+
+  .conv-icon {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .conv-title {
+    flex: 1;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .rename-input {
+    flex: 1;
+    font-size: 0.875rem;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    padding: 1px 6px;
+    outline: none;
+    background: var(--color-input-bg);
+    color: var(--color-text-primary);
+    min-width: 0;
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
+
+  .conv-actions {
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    flex-shrink: 0;
+    transition: opacity var(--transition-fast);
+
+    .conv-action-btn {
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color var(--transition-fast);
+
+      img {
+        width: 12px;
+        height: 12px;
+        opacity: 0.6;
+      }
+
+      &:hover {
+        background-color: var(--color-border);
+
+        img {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    background-color: var(--color-bg-tertiary);
+
+    .conv-actions {
+      opacity: 1;
+    }
+
+    .conv-icon {
+      color: var(--color-primary);
+    }
+  }
+
+  &.active {
+    background-color: var(--color-primary-light);
+
+    .conv-title {
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .conv-icon {
+      color: var(--color-primary);
+    }
+
+    .conv-actions {
+      opacity: 1;
+    }
+  }
+}
