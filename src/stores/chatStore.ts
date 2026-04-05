@@ -26,6 +26,7 @@ export interface Conversation {
   title: string;
   messages: Message[];
   createdAt: number;
+  hasGeneratedTitle: boolean;
 }
 
 interface ChatState {
@@ -47,6 +48,7 @@ interface ChatState {
   getLastMessage: () => Message | null;
   updateConversationTitle: (conversationId: string, newTitle: string) => void;
   deleteConversation: (conversationId: string) => void;
+  markTitleGenerated: (conversationId: string) => void;
 }
 
 export const useChatStore = create<ChatState>()(
@@ -58,6 +60,7 @@ export const useChatStore = create<ChatState>()(
           title: '新对话 1',
           messages: [],
           createdAt: Date.now(),
+          hasGeneratedTitle: false,
         },
       ],
       currentConversationId: '1',
@@ -82,6 +85,7 @@ export const useChatStore = create<ChatState>()(
           title: `新对话 ${count}`,
           messages: [],
           createdAt: Date.now(),
+          hasGeneratedTitle: false,
         };
         set((state) => ({
           conversations: [newConversation, ...state.conversations],
@@ -181,6 +185,7 @@ export const useChatStore = create<ChatState>()(
               title: '新对话 1',
               messages: [],
               createdAt: Date.now(),
+              hasGeneratedTitle: false,
             };
             conversations = [newConversation];
             return {
@@ -200,6 +205,14 @@ export const useChatStore = create<ChatState>()(
             currentConversationId: newCurrentId,
           };
         });
+      },
+
+      markTitleGenerated: (conversationId: string) => {
+        set((state) => ({
+          conversations: state.conversations.map((conv) =>
+            conv.id === conversationId ? { ...conv, hasGeneratedTitle: true } : conv
+          ),
+        }));
       },
     }),
     {

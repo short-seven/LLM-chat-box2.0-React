@@ -6,7 +6,7 @@ import ChatMessage from '../components/ChatMessage';
 import ChatLayout from '../components/layout/ChatLayout';
 import TopBar from '../components/layout/TopBar';
 import SettingsPanel from '../components/SettingsPanel';
-import { createChatCompletion } from '../utils/api';
+import { createChatCompletion, generateConversationTitle } from '../utils/api';
 import { messageHandler } from '../utils/messageHandler';
 import dialogIcon from '../assets/photo/对话.png';
 import './ChatView.scss';
@@ -33,6 +33,11 @@ const ChatView: React.FC = () => {
   }, []);
 
   const handleSend = async (messageContent: { text: string; files: any[] }) => {
+    const conversationId = chatStore.currentConversationId;
+    const conversation = chatStore.currentConversation();
+    const isFirstMessage = (conversation?.messages.length ?? 0) === 0;
+    const shouldGenerateTitle = isFirstMessage && !conversation?.hasGeneratedTitle;
+
     try {
       chatStore.addMessage(
         messageHandler.formatMessage('user', messageContent.text, '', messageContent.files)
@@ -42,6 +47,14 @@ const ChatView: React.FC = () => {
 
       const lastMessage = chatStore.getLastMessage();
       if (lastMessage) lastMessage.loading = true;
+
+      // 自动生成标题（异步，不阻塞对话）
+      if (shouldGenerateTitle) {
+        generateConversationTitle(messageContent.text).then((title) => {
+          chatStore.updateConversationTitle(conversationId, title);
+          chatStore.markTitleGenerated(conversationId);
+        });
+      }
 
       const allMessages = chatStore.currentMessages();
       const messages = allMessages
