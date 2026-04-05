@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SearchDialog from '../components/SearchDialog';
+import ThemeToggleButton from '../components/ThemeToggleButton';
 import githubIcon from '../assets/photo/github.png';
 import './HomePage.scss';
 
@@ -66,6 +67,7 @@ const HomePage: React.FC = () => {
               <div className="shortcut-key">⌘ K</div>
             </div>
           </div>
+          <ThemeToggleButton />
           <a href="https://github.com/short-seven/LLM-chat-box2.0-React" target="_blank" className="github-link">
             <img src={githubIcon} alt="GitHub" className="github-icon" />
           </a>

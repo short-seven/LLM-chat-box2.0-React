@@ -1,40 +1,152 @@
-// :root 选择器通常用于定义全局 CSS 变量（也称为自定义属性）,整个文档中被引用和使用，可以通过 var() 函数来引用这些变量
-:root {
-  // 基础颜色
-  --text-color: #000000;
-  --text-color-secondary: #bbbfc4;
-  --bg-color: #ffffff;
-  --border-color: #c5c5c5;
+// =============================================
+// 主题变量系统 - 默认主题 + 少女粉色主题
+// =============================================
 
-  // 代码相关的颜色和字体
+:root {
+  // 主色
+  --color-primary: #3f7af1;
+  --color-primary-hover: #3266d6;
+  --color-primary-light: #eef4ff;
+  --color-primary-light-hover: #e0ebff;
+
+  // 背景
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f9f9f9;
+  --color-bg-tertiary: #f2f2f2;
+  --color-bg-card: #ffffff;
+
+  // 文字
+  --color-text-primary: #171717;
+  --color-text-secondary: #666666;
+  --color-text-muted: #8f8f8f;
+  --color-text-placeholder: #999999;
+
+  // 边框
+  --color-border: #e5e7eb;
+  --color-border-light: #ebebeb;
+
+  // 组件
+  --color-header-bg: #ffffff;
+  --color-input-bg: #ffffff;
+  --color-bubble-user: #f4f4f4;
+  --color-bubble-assistant: #ffffff;
+  --color-menu-bg: #f7f7f7;
+  --color-menu-hover: #e5e7eb;
+  --color-menu-active-bar: var(--color-primary);
+  --color-settings-bg: #ffffff;
+  --color-reasoning-bg: #ffffff;
+  --color-reasoning-border: #dfe2e5;
+  --color-tokens-bg: #f3f4f6;
+  --color-switch-bg: #ccc;
+
+  // 阴影
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-input: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-primary: 0 6px 30px -10px var(--color-primary);
+
+  // 圆角
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  // 代码块
   --code-font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
-  --code-lang-text: #000000;
-  --code-block-bg: #fcfcfc;
-  --code-header-bg: #f3f4f6;
-  --code-border: #ebebeb;
-  --code-text: #383a42; /* 添加默认代码文本颜色 - 接近黑色 */
-  --code-header-button-hover-bg: #e5e6e8;
+  --code-lang-text: #666666;
+  --code-block-bg: #282c34;
+  --code-header-bg: #f7f7f7;
+  --code-border: #e5e7eb;
+  --code-text: #abb2bf;
+  --code-header-button-hover-bg: #e5e7eb;
+
+  // 过渡
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
 }
 
-/* 代码块的暗色主题 */
+// =============================================
+// 少女粉色主题
+// =============================================
+[data-theme="pink"] {
+  // 主色
+  --color-primary: #ff6fa5;
+  --color-primary-hover: #e85d91;
+  --color-primary-light: #fff0f5;
+  --color-primary-light-hover: #ffe0ec;
+
+  // 背景
+  --color-bg: #fff8fb;
+  --color-bg-secondary: #fff0f5;
+  --color-bg-tertiary: #ffe8f2;
+  --color-bg-card: #ffffff;
+
+  // 文字
+  --color-text-primary: #3d1a2e;
+  --color-text-secondary: #8b5a72;
+  --color-text-muted: #b07a96;
+  --color-text-placeholder: #c49ab0;
+
+  // 边框
+  --color-border: #ffd6e7;
+  --color-border-light: #ffe8f2;
+
+  // 组件
+  --color-header-bg: #fff8fb;
+  --color-input-bg: #ffffff;
+  --color-bubble-user: #ffe8f2;
+  --color-bubble-assistant: #ffffff;
+  --color-menu-bg: #fff0f5;
+  --color-menu-hover: #ffd6e7;
+  --color-menu-active-bar: var(--color-primary);
+  --color-settings-bg: #fff8fb;
+  --color-reasoning-bg: #fff8fb;
+  --color-reasoning-border: #ffd6e7;
+  --color-tokens-bg: #fff0f5;
+  --color-switch-bg: #ffb3d1;
+
+  // 阴影（粉色调）
+  --shadow-sm: 0 2px 8px rgba(255, 111, 165, 0.08);
+  --shadow-md: 0 4px 12px rgba(255, 111, 165, 0.15);
+  --shadow-lg: 0 4px 16px rgba(255, 111, 165, 0.1);
+  --shadow-input: 0 4px 12px rgba(255, 111, 165, 0.15);
+  --shadow-primary: 0 6px 30px -10px rgba(255, 111, 165, 0.6);
+
+  // 圆角（更圆润）
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  // 代码块
+  --code-header-bg: #fff0f5;
+  --code-border: #ffd6e7;
+  --code-lang-text: #b07a96;
+  --code-header-button-hover-bg: #ffd6e7;
+}
+
+// =============================================
+// 代码块暗色主题（与页面主题独立）
+// =============================================
 .code-block {
-  /* 明亮模式下的代码文本颜色 */
   pre.hljs {
     color: var(--code-text);
   }
 }
 
 .code-block.dark-theme {
-  --code-block-bg: #282c34; /* atom-one-dark 的背景色 */
-  --code-header-bg: #21252b; /* 略深一点的头部背景色 */
-  --code-border: #181a1f; /* 更深的边框色 */
-  --code-lang-text: #abb2bf; /* atom-one-dark 的默认文本色 */
+  --code-block-bg: #282c34;
+  --code-header-bg: #21252b;
+  --code-border: #181a1f;
+  --code-lang-text: #abb2bf;
   --code-header-button-hover-bg: #2c313a;
   --code-text: #abb2bf;
 
   pre.hljs {
     background-color: var(--code-block-bg);
-    /* atom-one-dark 主题会自动处理暗色模式的文本颜色 */
   }
 
   .code-header {
@@ -45,4 +157,54 @@
       color: var(--code-lang-text);
     }
   }
+}
+
+// =============================================
+// 粉色主题专属动效
+// =============================================
+
+// 爱心浮现动画
+@keyframes heart-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.8);
+  }
+}
+
+// 粉色 glow 脉冲
+@keyframes pink-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 111, 165, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 111, 165, 0);
+  }
+}
+
+// 主题切换过渡
+* {
+  transition:
+    background-color var(--transition-normal),
+    border-color var(--transition-normal),
+    color var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+// 排除不需要过渡的属性
+button, a, input, textarea, select {
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
 }

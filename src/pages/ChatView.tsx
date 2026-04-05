@@ -13,6 +13,7 @@ import settingIcon from '../assets/photo/设置.png';
 import backIcon from '../assets/photo/返回.png';
 import editIcon from '../assets/photo/编辑.png';
 import dialogIcon from '../assets/photo/对话.png';
+import ThemeToggleButton from '../components/ThemeToggleButton';
 import './ChatView.scss';
 
 const ChatView: React.FC = () => {
@@ -138,6 +139,7 @@ const ChatView: React.FC = () => {
         </div>
 
         <div className="header-right">
+          <ThemeToggleButton />
           <button className="action-btn" onClick={() => setShowSettings(true)}>
             <img src={settingIcon} alt="settings" />
           </button>

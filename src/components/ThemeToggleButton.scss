@@ -1,0 +1,49 @@
+.theme-toggle-btn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+
+  .theme-toggle-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.15);
+  }
+
+  &.is-pink:hover {
+    background-color: var(--color-primary-light);
+  }
+}
+
+// 爱心粒子 - 挂在 body 上
+.floating-heart {
+  position: fixed;
+  pointer-events: none;
+  font-size: 1rem;
+  color: #ff6fa5;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  animation: heart-burst 0.7s ease-out forwards;
+}
+
+@keyframes heart-burst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.4);
+  }
+}

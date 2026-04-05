@@ -1,9 +1,9 @@
 .chat-input-wrapper {
   padding: 0.8rem;
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-input);
 
   .preview-area {
     margin-bottom: 8px;
@@ -13,7 +13,7 @@
 
     .preview-item {
       position: relative;
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       overflow: hidden;
 
       .image-preview {
@@ -29,8 +29,8 @@
 
       .file-preview {
         padding: 8px;
-        background-color: #f4f4f5;
-        border-radius: 8px;
+        background-color: var(--color-bg-tertiary);
+        border-radius: var(--radius-md);
         display: flex;
         align-items: center;
         gap: 8px;
@@ -43,7 +43,7 @@
         }
 
         .file-size {
-          color: #909399;
+          color: var(--color-text-muted);
           font-size: 12px;
         }
       }
@@ -71,20 +71,32 @@
 
   textarea {
     width: 100%;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     border: none;
     outline: none;
     font-size: 14px;
     font-family: inherit;
     padding: 8px 0;
+    background: transparent;
+    color: var(--color-text-primary);
+    resize: none;
 
     &::placeholder {
-      color: #999;
+      color: var(--color-text-placeholder);
     }
 
     &:focus {
       border: none;
       outline: none;
+    }
+  }
+
+  // 粉色主题 focus glow
+  [data-theme="pink"] & {
+    &:focus-within {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(255, 111, 165, 0.2), var(--shadow-input);
+      animation: pink-glow-pulse 1.5s ease-in-out infinite;
     }
   }
 
@@ -102,10 +114,8 @@
     .divider {
       height: 1rem;
       width: 1px;
-      background-color: #e5e7eb;
-      margin: 0;
-      margin-left: 0.125rem;
-      margin-right: 0.25rem;
+      background-color: var(--color-border);
+      margin: 0 0.125rem 0 0.25rem;
     }
 
     .action-btn {
@@ -119,7 +129,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.3s;
 
       img {
         width: 1rem;
@@ -127,13 +136,14 @@
       }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: var(--color-primary-light);
+        transform: scale(1.1);
       }
 
       &.send-btn {
         width: 2rem;
         height: 2rem;
-        background-color: #3f7af1;
+        background-color: var(--color-primary);
 
         img {
           width: 1.25rem;
@@ -141,12 +151,14 @@
         }
 
         &:hover {
-          background-color: #3266d6;
+          background-color: var(--color-primary-hover);
+          transform: scale(1.08);
         }
 
         &:disabled {
           opacity: 0.5;
           cursor: not-allowed;
+          transform: none;
         }
       }
     }

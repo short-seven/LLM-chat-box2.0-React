@@ -12,22 +12,22 @@
 }
 
 .dialog-content {
-  background: white;
-  border-radius: 8px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .dialog-header {
   padding: 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
 
   h3 {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
-    color: #171717;
+    color: var(--color-text-primary);
   }
 }
 
@@ -37,13 +37,16 @@
   input {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #e5e7eb;
-    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     font-size: 14px;
     outline: none;
+    background: var(--color-input-bg);
+    color: var(--color-text-primary);
 
     &:focus {
-      border-color: #3f7af1;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px var(--color-primary-light);
     }
   }
 
@@ -51,7 +54,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #606266;
+    color: var(--color-text-secondary);
 
     .warning-icon {
       color: #ed3336;
@@ -66,34 +69,36 @@
 
 .dialog-footer {
   padding: 20px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: flex-end;
   gap: 12px;
 
   .btn {
     padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: 14px;
     cursor: pointer;
     border: none;
-    transition: all 0.2s;
+    transition: all var(--transition-fast);
 
     &.btn-cancel {
-      background: #f3f4f6;
-      color: #374151;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
 
       &:hover {
-        background: #e5e7eb;
+        background: var(--color-border);
+        transform: scale(1.03);
       }
     }
 
     &.btn-primary {
-      background: #3f7af1;
+      background: var(--color-primary);
       color: white;
 
       &:hover {
-        background: #3266d6;
+        background: var(--color-primary-hover);
+        transform: scale(1.03);
       }
     }
 
@@ -103,6 +108,7 @@
 
       &:hover {
         background: #d32f2f;
+        transform: scale(1.03);
       }
     }
   }

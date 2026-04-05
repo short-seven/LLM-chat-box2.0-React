@@ -47,6 +47,8 @@ export const modelOptions: ModelOption[] = [
   },
 ];
 
+export type Theme = 'default' | 'pink';
+
 export interface Settings {
   model: string;
   apiKey: string;
@@ -59,12 +61,15 @@ export interface Settings {
 
 interface SettingState {
   settings: Settings;
+  theme: Theme;
   updateSettings: (settings: Partial<Settings>) => void;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
 }
 
 export const useSettingStore = create<SettingState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       settings: {
         model: 'deepseek-ai/DeepSeek-R1',
         apiKey: defaultApiKey,
@@ -74,14 +79,29 @@ export const useSettingStore = create<SettingState>()(
         topP: 0.7,
         topK: 50,
       },
+      theme: 'default',
       updateSettings: (newSettings: Partial<Settings>) => {
         set((state) => ({
           settings: { ...state.settings, ...newSettings },
         }));
       },
+      setTheme: (theme: Theme) => {
+        set({ theme });
+        document.documentElement.setAttribute('data-theme', theme === 'default' ? '' : theme);
+      },
+      toggleTheme: () => {
+        const next: Theme = get().theme === 'default' ? 'pink' : 'default';
+        get().setTheme(next);
+      },
     }),
     {
       name: 'llm-setting',
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          const t = state.theme;
+          document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t);
+        }
+      },
     }
   )
 );
