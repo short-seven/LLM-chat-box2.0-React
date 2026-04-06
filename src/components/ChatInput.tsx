@@ -13,15 +13,17 @@ interface File {
 
 interface ChatInputProps {
   loading: boolean;
+  isStreaming: boolean;
   onSend: (message: { text: string; files: File[] }) => void;
+  onStop: () => void;
 }
 
-const ChatInput: React.FC<ChatInputProps> = ({ loading, onSend }) => {
+const ChatInput: React.FC<ChatInputProps> = ({ loading, isStreaming, onSend, onStop }) => {
   const [inputValue, setInputValue] = useState('');
   const [fileList, setFileList] = useState<File[]>([]);
 
   const handleSend = () => {
-    if (!inputValue.trim() || loading) return;
+    if (!inputValue.trim()) return;
 
     const messageContent = {
       text: inputValue.trim(),
@@ -139,9 +141,17 @@ const ChatInput: React.FC<ChatInputProps> = ({ loading, onSend }) => {
 
         <div className="divider"></div>
 
-        <button className="action-btn send-btn" disabled={loading} onClick={handleSend}>
-          <img src={sendIcon} alt="send" />
-        </button>
+        {isStreaming ? (
+          <button className="action-btn stop-btn" onClick={onStop} title="停止生成">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+              <rect x="2" y="2" width="10" height="10" rx="1.5" />
+            </svg>
+          </button>
+        ) : (
+          <button className="action-btn send-btn" disabled={loading || !inputValue.trim()} onClick={handleSend}>
+            <img src={sendIcon} alt="send" />
+          </button>
+        )}
       </div>
     </div>
   );

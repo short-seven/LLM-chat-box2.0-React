@@ -33,12 +33,17 @@ interface ChatState {
   conversations: Conversation[];
   currentConversationId: string;
   isLoading: boolean;
+  isStreaming: boolean;
+  abortController: AbortController | null;
   currentConversation: () => Conversation | undefined;
   currentMessages: () => Message[];
   createConversation: () => void;
   switchConversation: (conversationId: string) => void;
   addMessage: (message: Partial<Message>) => void;
   setIsLoading: (value: boolean) => void;
+  setIsStreaming: (value: boolean) => void;
+  setAbortController: (controller: AbortController | null) => void;
+  stopGeneration: () => void;
   updateLastMessage: (
     content: string,
     reasoning_content?: string,
@@ -65,6 +70,8 @@ export const useChatStore = create<ChatState>()(
       ],
       currentConversationId: '1',
       isLoading: false,
+      isStreaming: false,
+      abortController: null,
 
       currentConversation: () => {
         const state = get();
@@ -79,6 +86,8 @@ export const useChatStore = create<ChatState>()(
       },
 
       createConversation: () => {
+        const { abortController } = get();
+        if (abortController) abortController.abort();
         const count = get().conversations.length + 1;
         const newConversation: Conversation = {
           id: Date.now().toString(),
@@ -90,11 +99,16 @@ export const useChatStore = create<ChatState>()(
         set((state) => ({
           conversations: [newConversation, ...state.conversations],
           currentConversationId: newConversation.id,
+          isStreaming: false,
+          isLoading: false,
+          abortController: null,
         }));
       },
 
       switchConversation: (conversationId: string) => {
-        set({ currentConversationId: conversationId });
+        const { abortController } = get();
+        if (abortController) abortController.abort();
+        set({ currentConversationId: conversationId, isStreaming: false, isLoading: false, abortController: null });
       },
 
       addMessage: (message: Partial<Message>) => {
@@ -123,6 +137,22 @@ export const useChatStore = create<ChatState>()(
 
       setIsLoading: (value: boolean) => {
         set({ isLoading: value });
+      },
+
+      setIsStreaming: (value: boolean) => {
+        set({ isStreaming: value });
+      },
+
+      setAbortController: (controller: AbortController | null) => {
+        set({ abortController: controller });
+      },
+
+      stopGeneration: () => {
+        const { abortController } = get();
+        if (abortController) {
+          abortController.abort();
+        }
+        set({ isStreaming: false, isLoading: false, abortController: null });
       },
 
       updateLastMessage: (
@@ -218,6 +248,10 @@ export const useChatStore = create<ChatState>()(
     {
       name: 'llm-chat',
       version: 1,
+      partialize: (state) => ({
+        conversations: state.conversations,
+        currentConversationId: state.currentConversationId,
+      }),
       migrate: (persistedState: any) => {
         // 修复旧数据中可能存在的重复ID
         if (persistedState && persistedState.conversations) {

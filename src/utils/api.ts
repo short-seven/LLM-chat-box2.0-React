@@ -45,7 +45,10 @@ export const generateConversationTitle = async (firstMessage: string): Promise<s
   }
 };
 
-export const createChatCompletion = async (messages: Array<{ role: string; content: string }>) => {
+export const createChatCompletion = async (
+  messages: Array<{ role: string; content: string }>,
+  signal?: AbortSignal
+) => {
   const { settings } = useSettingStore.getState();
 
   if (!settings.apiKey.trim()) {
@@ -69,6 +72,7 @@ export const createChatCompletion = async (messages: Array<{ role: string; conte
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
+    signal,
   };
 
   try {

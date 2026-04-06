@@ -30,7 +30,8 @@ export const messageHandler = {
       reasoning_content: string,
       tokens: number,
       speed: number
-    ) => void
+    ) => void,
+    signal?: AbortSignal
   ) {
     const reader = response.body?.getReader();
     if (!reader) return;
@@ -40,36 +41,47 @@ export const messageHandler = {
     let accumulatedReasoning = '';
     let startTime = Date.now();
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
+    try {
+      while (true) {
+        if (signal?.aborted) break;
 
-      const chunk = decoder.decode(value);
-      const lines = chunk.split('\n').filter((line) => line.trim() !== '');
+        const { done, value } = await reader.read();
+        if (done) break;
 
-      for (const line of lines) {
-        if (line === 'data: [DONE]') continue;
-        if (line.startsWith('data: ')) {
-          const data = JSON.parse(line.slice(5));
-          const content = data.choices[0].delta.content || '';
-          const reasoning = data.choices[0].delta.reasoning_content || '';
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n').filter((line) => line.trim() !== '');
 
-          accumulatedContent += content;
-          accumulatedReasoning += reasoning;
+        for (const line of lines) {
+          if (line === 'data: [DONE]') continue;
+          if (line.startsWith('data: ')) {
+            const data = JSON.parse(line.slice(5));
+            const content = data.choices[0].delta.content || '';
+            const reasoning = data.choices[0].delta.reasoning_content || '';
 
-          updateCallback(
-            accumulatedContent,
-            accumulatedReasoning,
-            data.usage?.completion_tokens || 0,
-            parseFloat(
-              (
-                (data.usage?.completion_tokens || 0) /
-                ((Date.now() - startTime) / 1000)
-              ).toFixed(2)
-            )
-          );
+            accumulatedContent += content;
+            accumulatedReasoning += reasoning;
+
+            updateCallback(
+              accumulatedContent,
+              accumulatedReasoning,
+              data.usage?.completion_tokens || 0,
+              parseFloat(
+                (
+                  (data.usage?.completion_tokens || 0) /
+                  ((Date.now() - startTime) / 1000)
+                ).toFixed(2)
+              )
+            );
+          }
         }
       }
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        return; // Gracefully stop; partial content is preserved
+      }
+      throw error;
+    } finally {
+      reader.cancel();
     }
   },
 
@@ -100,10 +112,11 @@ export const messageHandler = {
       reasoning_content: string,
       tokens: number,
       speed: number
-    ) => void
+    ) => void,
+    signal?: AbortSignal
   ) {
     if (isStream) {
-      await this.handleStreamResponse(response, updateCallback);
+      await this.handleStreamResponse(response, updateCallback, signal);
     } else {
       this.handleNormalResponse(response, updateCallback);
     }

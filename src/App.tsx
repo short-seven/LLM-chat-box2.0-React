@@ -4,7 +4,7 @@ import ChatView from './pages/ChatView';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter  >
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/chat" element={<ChatView />} />

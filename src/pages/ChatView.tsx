@@ -19,6 +19,7 @@ const ChatView: React.FC = () => {
   const settingStore = useSettingStore();
   const currentMessages = chatStore.currentMessages();
   const isLoading = chatStore.isLoading;
+  const isStreaming = chatStore.isStreaming;
 
   useEffect(() => {
     if (messagesContainerRef.current) {
@@ -33,6 +34,16 @@ const ChatView: React.FC = () => {
   }, []);
 
   const handleSend = async (messageContent: { text: string; files: any[] }) => {
+    // Abort any in-progress request before starting a new one
+    const existingController = chatStore.abortController;
+    if (existingController) {
+      existingController.abort();
+    }
+
+    const controller = new AbortController();
+    chatStore.setAbortController(controller);
+    chatStore.setIsStreaming(true);
+
     const conversationId = chatStore.currentConversationId;
     const conversation = chatStore.currentConversation();
     const isFirstMessage = (conversation?.messages.length ?? 0) === 0;
@@ -61,20 +72,27 @@ const ChatView: React.FC = () => {
         .filter((msg) => msg.content.trim() !== '')
         .map(({ role, content }) => ({ role, content }));
 
-      const response = await createChatCompletion(messages);
+      const response = await createChatCompletion(messages, controller.signal);
 
       await messageHandler.handleResponse(
         response,
         settingStore.settings.stream,
         (content, reasoning_content, tokens, speed) => {
           chatStore.updateLastMessage(content, reasoning_content, tokens, speed);
-        }
+        },
+        controller.signal
       );
     } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        // Silently handle abort — partial content is preserved
+        return;
+      }
       console.error('Failed to send message:', error);
       chatStore.updateLastMessage('抱歉，发生了一些错误，请稍后重试。');
     } finally {
       chatStore.setIsLoading(false);
+      chatStore.setIsStreaming(false);
+      chatStore.setAbortController(null);
       const lastMessage = chatStore.getLastMessage();
       if (lastMessage) lastMessage.loading = false;
     }
@@ -121,7 +139,7 @@ const ChatView: React.FC = () => {
       </div>
 
       <div className="chat-input-container">
-        <ChatInput loading={isLoading} onSend={handleSend} />
+        <ChatInput loading={isLoading} isStreaming={isStreaming} onSend={handleSend} onStop={chatStore.stopGeneration} />
       </div>
 
       {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
