@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { renderMarkdown } from '../utils/markdown';
 import type { Message } from '../stores/chatStore';
+import aiAvatarImg from '../assets/avatar/girl.png';
+import userAvatarImg from '../assets/avatar/boy.png';
 import copyIcon from '../assets/photo/复制.png';
 import successIcon from '../assets/photo/成功.png';
 import likeIcon from '../assets/photo/赞.png';
@@ -113,6 +115,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLastAssistantMessa
 
   return (
     <div className={`message-item ${message.role === 'user' ? 'is-mine' : ''}`}>
+      {message.role === 'assistant' && (
+        <img src={aiAvatarImg} alt="小智" className="msg-avatar msg-avatar--ai" />
+      )}
       <div className="content">
         {message.files && message.files.length > 0 && (
           <div className="files-container">
@@ -193,6 +198,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isLastAssistantMessa
           </div>
         )}
       </div>
+      {message.role === 'user' && (
+        <img src={userAvatarImg} alt="我" className="msg-avatar msg-avatar--user" />
+      )}
     </div>
   );
 };

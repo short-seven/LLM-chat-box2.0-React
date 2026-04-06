@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import SearchDialog from '../components/SearchDialog';
 import ThemeToggleButton from '../components/ThemeToggleButton';
 import githubIcon from '../assets/photo/github.png';
+import avatarImg from '../assets/avatar/girl.png';
 import './HomePage.scss';
 
 const HomePage: React.FC = () => {
@@ -54,7 +55,10 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <header className="header">
         <div className="header-left">
-          <span className="logo-text">LLM Chat</span>
+          <div className="logo-brand">
+            <img src={avatarImg} alt="小智" className="logo-avatar" />
+            <span className="logo-text">小智</span>
+          </div>
         </div>
         <div className="header-right">
           <div className="search-container" onClick={handleSearchClick}>
@@ -76,7 +80,7 @@ const HomePage: React.FC = () => {
 
       <main className="main-content">
         <div className="hero-section">
-          <h1 className="title">欢迎使用 LLM Chat</h1>
+          <h1 className="title">欢迎使用 小智</h1>
           <p className="description">一个强大的 AI 聊天助手，基于大语言模型，为您提供智能对话体验</p>
           <div className="features">
             <div className="feature-item">

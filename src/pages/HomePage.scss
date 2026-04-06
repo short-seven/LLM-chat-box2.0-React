@@ -15,11 +15,31 @@
   .header-left {
     flex-shrink: 0;
 
+    .logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: default;
+
+      &:hover .logo-avatar {
+        transform: scale(1.08) rotate(3deg);
+        box-shadow: 0 0 0 3px var(--color-primary-light);
+      }
+    }
+
+    .logo-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--color-primary-light);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
     .logo-text {
       font-size: 20px;
       font-weight: 600;
       color: var(--color-text-primary);
-      cursor: pointer;
       user-select: none;
       white-space: nowrap;
     }

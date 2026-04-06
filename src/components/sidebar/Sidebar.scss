@@ -29,6 +29,31 @@
   padding: 14px 12px 10px;
   flex-shrink: 0;
 
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+
+    &:hover .sidebar-avatar {
+      transform: scale(1.08) rotate(3deg);
+    }
+  }
+
+  .sidebar-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-primary-light);
+    flex-shrink: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+  }
+
   .sidebar-logo {
     font-size: 1rem;
     font-weight: 700;

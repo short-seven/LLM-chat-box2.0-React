@@ -1,6 +1,7 @@
 import React from 'react';
 import { useChatStore } from '../../stores/chatStore';
 import ConversationList from './ConversationList';
+import avatarImg from '../../assets/avatar/girl.png';
 import './Sidebar.scss';
 
 interface SidebarProps {
@@ -14,7 +15,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
   return (
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
-        {!collapsed && <span className="sidebar-logo">LLM Chat</span>}
+        {!collapsed && (
+          <div className="sidebar-brand">
+            <img src={avatarImg} alt="小智" className="sidebar-avatar" />
+            <span className="sidebar-logo">小智</span>
+          </div>
+        )}
         <button className="sidebar-toggle-btn" onClick={onToggle} title={collapsed ? '展开侧栏' : '收起侧栏'}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             {collapsed ? (
