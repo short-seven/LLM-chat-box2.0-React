@@ -193,13 +193,13 @@ npm run build
 
 ## 截图
 
-### 首页
+### 蓝色和粉色主题
 
-![首页](src/assets/sampels/首页.png)
+![蓝色和粉色主题](src/assets/sampels/蓝色主题.png)
+![蓝色和粉色主题](src/assets/sampels/粉色主题.png)
+### 独立对话框
 
-### 独立对话界面
-
-![独立对话界面](src/assets/sampels/独立对话框.png)
+![独立对话框](src/assets/sampels/独立对话框.png)
 
 ### 内联对话框
 
