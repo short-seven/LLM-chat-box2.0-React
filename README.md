@@ -1,74 +1,125 @@
-# 🤖 LLM Chat React
+# 🤖 LLM Chat React 2.0
 
-一个基于 React 19、TypeScript 和 Vite 8 的轻量级 AI 聊天界面，支持多会话、本地持久化、Markdown 渲染、代码高亮和流式输出。
+一个基于 React 19 + TypeScript + Vite 构建的轻量级 AI 聊天界面，对接 [SiliconFlow](https://siliconflow.cn) 开放平台，支持多模型、多会话、流式输出与主题切换。
 
+**在线体验：** https://short-seven.github.io/LLM-chat-box2.0-React/
+> 访问需要梯子，并在设置中填入硅基流动平台的 API Key
+
+---
 
 ## 🧠 作者想说
-首先感谢一个开源LLM Chat Vue的老哥（他的版本在我主页Star中）,我主要把他的Vue3全家桶语法改为最新版本的React全家桶,并且增加一点安全校验去掉了硬编码API Key，Zustand状态同步等问题。欢迎大家Fork，Star和提Issues一起学习和交流！未来我会不断的改善这个React版本和增加RAG等功能！
-部署地址：https://short-seven.github.io/LLM-chat-box2.0-React/
-温馨提示打开梯子来访问上面地址，然后问ai对话,需要填写硅基流动平台的apikey!
-## 📊 项目状态
 
-这个项目目前是一个纯前端聊天客户端，适合用于：
+感谢开源 LLM Chat Vue 的作者（在我主页 Star 中），本项目将其 Vue3 全家桶语法全面迁移至 React 19，并在此基础上做了大量改造和功能扩展：去除硬编码 API Key、引入 Zustand 状态管理、增加主题系统、流式中断机制等。欢迎 Fork、Star 和提 Issues 一起交流！
 
-- 🚀 快速搭建 AI 聊天 UI
-- 🎯 演示流式输出与 Markdown 渲染
-- 🔧 作为接入大模型 API 的前端模板
+---
 
-当前默认对接的是 SiliconFlow 兼容接口。
+## ✨ 功能特性
 
-## ✨ 已实现功能
+### 对话体验
+- **多会话管理** — 创建、切换、重命名、删除对话，侧边栏可折叠
+- **AI 自动生成标题** — 首条消息发送后异步生成对话标题，不阻塞输入
+- **流式输出** — 支持 SSE 流式响应，实时逐字显示回复内容
+- **停止生成** — 流式响应中可随时点击停止按钮中断输出，已生成内容保留
+- **切换对话自动中断** — 新开对话或切换会话时自动终止当前请求，避免多请求竞争
+- **消息重新生成** — 对最后一条 AI 回复一键重新生成
+- **深度思考展示** — 支持展示模型推理过程（reasoning_content），可折叠
 
-- 📋 多会话创建、切换、重命名、删除
-- 💾 对话和设置持久化到浏览器本地
-- ⚡ 流式响应与普通响应
-- 📝 Markdown 渲染
-- 🔍 代码高亮与代码块复制
-- 🧠 推理内容展示
-- 🖼️ 图片与文件本地预览
-- 🔍 首页快捷搜索弹层
-- 📱 基础响应式布局
+### 内容渲染
+- **Markdown 渲染** — 完整支持标题、列表、表格、引用、加粗等语法
+- **代码高亮** — 基于 Highlight.js，支持多语言语法高亮
+- **代码块复制** — 代码块右上角一键复制，带成功状态反馈
+- **消息点赞 / 踩** — 对 AI 回复进行反馈标记
 
-## ⚠️ 当前限制
+### 输入与上传
+- **图片上传预览** — 支持本地图片附件预览（前端展示）
+- **文件上传预览** — 支持 PDF、Word、TXT 等文件附件展示
+- **Enter 发送 / Shift+Enter 换行** — 符合主流聊天软件习惯
+- **自动高度调整** — 输入框随内容自动扩展，最大 6 行
 
-为了避免误解，这里特别说明一下当前版本的边界：
+### 外观与主题
+- **双主题切换** — 默认主题与粉色主题（Pink）一键切换，刷新后恢复
+- **粉色主题聚焦光晕** — 粉色模式下输入框获得焦点时有呼吸动画
 
-- 📤 上传的图片和文件目前主要用于前端预览，不会自动解析文件内容并发送给模型
-- 🖥️ 项目当前没有后端代理层
-- 🧹 代码质量检查仍有待继续完善，`npm run lint` 目前会报错
-- 🏗️ 构建在部分受限 Windows 环境下可能遇到 `spawn EPERM`
+### 设置与配置
+- **设置面板** — 可视化配置 API Key、模型、流式开关、最大 Token、Temperature、Top-P、Top-K
+- **本地持久化** — 对话记录与设置均持久化到浏览器 localStorage，刷新不丢失
+- **环境变量注入** — 支持通过 `.env.local` 预设 API Key，首次打开自动填入
 
-如果你准备把它投入正式使用，建议优先补上后端代理、密钥管理和输入内容安全处理。
+### 页面
+- **首页** — 项目介绍 + 快捷搜索弹层，点击进入对话
+- **对话页** — 独立全屏聊天视图，顶栏显示当前会话标题
 
-## 技术栈
+---
 
-- React 19
-- TypeScript 5
-- Vite 8
-- React Router DOM 7
-- Zustand 5
-- Sass
-- Markdown-it
-- Highlight.js
+## 🛠 技术栈
 
-## 目录结构
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| React | 19 | UI 框架 |
+| TypeScript | 5 | 类型安全 |
+| Vite | 8 | 构建工具 |
+| React Router DOM | 7 | 路由管理 |
+| Zustand | 5 | 全局状态管理 |
+| Sass | — | 样式预处理 |
+| markdown-it | — | Markdown 解析 |
+| Highlight.js | — | 代码高亮 |
+
+---
+
+## 🤖 支持模型
+
+通过硅基流动平台接入以下模型（可在设置面板中切换）：
+
+| 模型 | 最大 Token |
+|------|-----------|
+| DeepSeek-R1 | 16384 |
+| DeepSeek-V3 | 4096 |
+| DeepSeek-V2.5 | 4096 |
+| Qwen2.5-72B-Instruct-128K | 4096 |
+| QwQ-32B-Preview | 8192 |
+| GLM-4-9B-Chat | 4096 |
+| GLM-4-9B-Chat (Pro) | 4096 |
+
+---
+
+## 📁 目录结构
 
 ```text
 src/
-├── assets/          资源文件
-├── components/      页面组件
-├── pages/           页面入口
-├── stores/          Zustand 状态管理
-├── utils/           API、Markdown、消息处理
+├── assets/
+│   ├── photo/           图标资源
+│   ├── sampels/         截图示例
+│   └── styles/          全局样式变量（SCSS）
+├── components/
+│   ├── layout/          ChatLayout、TopBar 布局组件
+│   ├── sidebar/         Sidebar、ConversationList、ConversationItem
+│   ├── ChatInput.tsx    输入框（含停止生成按钮）
+│   ├── ChatMessage.tsx  消息气泡（含 Markdown、推理内容、操作栏）
+│   ├── SettingsPanel.tsx 设置面板
+│   ├── SearchDialog.tsx  首页搜索弹层
+│   ├── DialogEdit.tsx   会话重命名弹框
+│   └── ThemeToggleButton.tsx 主题切换按钮
+├── pages/
+│   ├── HomePage.tsx     首页
+│   └── ChatView.tsx     对话页（含请求生命周期管理）
+├── stores/
+│   ├── chatStore.ts     对话状态（会话列表、流式状态、AbortController）
+│   └── settingStore.ts  设置状态（模型、主题、参数）
+├── utils/
+│   ├── api.ts           SiliconFlow API 请求封装（含 signal 支持）
+│   ├── messageHandler.ts 流式/普通响应解析（含 AbortError 处理）
+│   └── markdown.ts      Markdown 渲染配置
 ├── App.tsx
 └── main.tsx
 ```
 
-## 快速开始
+---
+
+## 🚀 快速开始
 
 ### 环境要求
 
-- Node.js 18 及以上
+- Node.js 18+
 - npm 或 pnpm
 
 ### 安装依赖
@@ -77,60 +128,68 @@ src/
 npm install
 ```
 
-### 配置环境变量
+### 配置 API Key
 
-先复制示例文件，再填入你自己的 API Key：
+复制示例文件并填入你的硅基流动 API Key：
 
 ```bash
 cp .env.example .env.local
 ```
 
-Windows PowerShell 也可以直接新建 `.env.local`，内容如下：
+`.env.local` 内容：
 
 ```env
 VITE_SILICONFLOW_API_KEY=your_siliconflow_api_key_here
 ```
 
-### 启动开发环境
+> 也可以不配置环境变量，直接在应用右上角的设置面板中填写 API Key。
+
+### 启动开发服务
 
 ```bash
 npm run dev
 ```
 
-### 运行代码检查
-
-```bash
-npm run lint
-```
-
-### 构建
+### 构建生产版本
 
 ```bash
 npm run build
 ```
 
-## 使用说明
+---
 
-1. 启动项目后，进入聊天页。
-2. 打开右上角设置面板。
-3. 在设置面板中填入你自己的 API Key，或提前在 `.env.local` 中配置。
-4. 选择模型并调整参数。
-5. 开始发送消息。
+## 📖 使用说明
 
-## 配置项
+1. 打开应用后，点击首页「开始对话」或侧边栏「+ 新对话」进入聊天
+2. 点击右上角 ⚙️ 图标打开设置面板，填入 API Key 并选择模型
+3. 在输入框中输入消息，按 `Enter` 发送，`Shift + Enter` 换行
+4. AI 输出期间点击 ■ **停止生成** 按钮可随时中断，已生成内容保留
+5. 点击右上角 💗 图标可切换粉色主题
+6. 对话列表支持右键或悬浮操作：重命名、删除
 
-当前支持的主要设置包括：
+---
 
-- `model`
-- `apiKey`
-- `stream`
-- `maxTokens`
-- `temperature`
-- `topP`
-- `topK`
+## ⚙️ 可配置参数
 
-模型列表定义在 [src/stores/settingStore.ts](src/stores/settingStore.ts)。
-如果 `.env.local` 中提供了 `VITE_SILICONFLOW_API_KEY`，应用会把它作为首次启动时的默认值。
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `apiKey` | SiliconFlow API Key | — |
+| `model` | 使用的模型 | DeepSeek-R1 |
+| `stream` | 是否开启流式输出 | `true` |
+| `maxTokens` | 最大生成 Token 数 | 4096 |
+| `temperature` | 随机性，越高越发散 | 0.7 |
+| `topP` | 核采样概率 | 0.7 |
+| `topK` | 每步候选词数量 | 50 |
+
+---
+
+## ⚠️ 当前限制
+
+- **文件内容未发送给模型** — 上传的图片和文件目前仅在前端预览，不会解析内容并注入对话
+- **无后端代理** — API Key 在浏览器中直接使用，生产环境建议增加后端代理层和密钥管理
+- **Lint 警告** — `npm run lint` 目前存在部分警告，不影响运行
+
+---
 
 ## 截图
 
@@ -146,19 +205,8 @@ npm run build
 
 ![内联对话框](src/assets/sampels/内联对话框.png)
 
-## 文档待完善项
+---
 
-后续还可以继续补充：
+## 🤝 贡献
 
-- API 接口说明
-- 组件说明
-- 状态流转说明
-- 常见问题排查
-
-## 说明
-
-如果你正在继续维护这个项目，建议下一步优先处理这几件事：
-
-1. 修复当前 lint 报错
-2. 明确文件上传的真实能力边界
-3. 为 Markdown 渲染增加安全过滤
+欢迎提 Issues 和 Pull Requests！如果这个项目对你有帮助，请点个 ⭐ Star 支持一下。
