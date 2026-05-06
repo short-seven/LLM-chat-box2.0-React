@@ -4,7 +4,7 @@ import ChatView from './pages/ChatView';
 
 function App() {
   return (
-    <BrowserRouter  >
+    <BrowserRouter basename="/LLM-chat-box2.0-React">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/chat" element={<ChatView />} />
