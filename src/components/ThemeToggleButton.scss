@@ -10,19 +10,31 @@
   align-items: center;
   justify-content: center;
   transition: transform var(--transition-fast), background-color var(--transition-fast);
+  color: var(--color-text-secondary);
 
-  .theme-toggle-icon {
-    font-size: 1.1rem;
-    line-height: 1;
+  svg {
+    transition: transform 0.2s ease, color 0.2s ease;
   }
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
     transform: scale(1.15);
+
+    svg {
+      color: #ff6fa5;
+    }
   }
 
-  &.is-pink:hover {
-    background-color: var(--color-primary-light);
+  &.is-pink {
+    color: #ff6fa5;
+
+    &:hover {
+      background-color: var(--color-primary-light);
+
+      svg {
+        color: var(--color-primary);
+      }
+    }
   }
 }
 
