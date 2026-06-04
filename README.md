@@ -9,7 +9,7 @@
 
 ## 🧠 作者想说
 
-感谢开源 LLM Chat Vue 的作者（在我主页 Star 中），本项目将其 Vue3 全家桶语法全面迁移至 React 19，并在此基础上做了大量改造和功能扩展：去除硬编码 API Key、引入 Zustand 状态管理、增加主题系统、流式中断机制等。欢迎 Fork、Star 和提 Issues 一起交流！
+本项目将其 Vue3 全家桶语法全面迁移至 React 19，并在此基础上做了大量改造和功能扩展：去除硬编码 API Key、引入 Zustand 状态管理、增加主题系统、流式中断机制等。欢迎 Fork、Star 和提 Issues 一起交流！
 
 ---
 
